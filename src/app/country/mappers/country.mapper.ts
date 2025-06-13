@@ -9,7 +9,9 @@ export class CountryMapper {
       flag: restCountry.flag,
       flagSvg: restCountry.flags.svg,
       name: restCountry.translations['spa'].common ?? 'No Spanish Name',
-      capital: restCountry.capital.join(','),
+      capital: restCountry.capital?.length
+        ? restCountry.capital.join(', ')
+        : 'Sin capital',
       population: restCountry.population,
     };
   }
@@ -18,8 +20,10 @@ export class CountryMapper {
     restCountry: RESTCountry
   ): CountryInformation {
     return {
-      capital: restCountry.capital.join(','),
-      borders: restCountry.borders,
+      capital: restCountry.capital?.length
+        ? restCountry.capital.join(', ')
+        : 'Sin capital',
+      borders: restCountry.borders?.length ? restCountry.borders : ['N/A'],
       cca2: restCountry.cca2,
       flagSvg: restCountry.flags.svg,
       map: restCountry.maps.googleMaps,

@@ -1,11 +1,11 @@
-<section class="w-full flex flex-wrap md:flex-nowrap gap-25 mr-4 mt-3 p-3">
+<section class="w-full flex flex-wrap lg:flex-nowrap gap-25 mr-4 mt-3 p-3">
   <div class="max-w-max">
     <h1 class="text-2xl lg:text-4xl font-bold text-primary">
       {{ country().name.official }}
     </h1>
     <div>
       <img
-        class="w-max mt-5"
+        class="w-max mt-5 lg:w-[900px] shadow-black shadow-2xl"
         [src]="country().flagSvg"
         [alt]="country().name.common"
       />
@@ -206,7 +206,11 @@
           >
         </div>
         <div class="stat-value">
-          @for (border of country().borders; track border; let i = $index) {
+          @if (country().borders.length === 1 && country().borders[0] === 'N/A')
+          {
+          <p class="text-lg lg:text-xl">{{ country().borders[0] }}</p>
+          } @else { @for (border of country().borders; track border; let i =
+          $index) {
           <a
             class="link-info cursor-pointer hover:link-secondary text-lg lg:text-xl"
             [routerLink]="['/country/by/', border]"
@@ -215,7 +219,7 @@
           </a>
           @if (i < country().borders.length - 1) {
           <span class="text-primary mx-1"> | </span>
-          } }
+          } } }
         </div>
       </div>
       <div class="stat">

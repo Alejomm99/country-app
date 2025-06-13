@@ -1,1 +1,22 @@
-<country-list [countries]="[]" />
+<ul class="menu menu-horizontal gap-4">
+  @for (region of regions; track region) {
+  <li
+    class="border w-25 rounded-lg"
+    [ngClass]="{ 'border-primary text-primary': selectedRegion() === region }"
+  >
+    <button
+      class="w-full flex justify-center p-2"
+      (click)="selectedRegion.set(region)"
+    >
+      {{ region }}
+    </button>
+  </li>
+  }
+</ul>
+
+<country-list
+  [countries]="countryResource.value() ?? []"
+  [errorMessage]="countryResource.error()"
+  [isEmpty]="countryResource.value()?.length === 0"
+  [isLoading]="countryResource.isLoading()"
+/>
